@@ -1,0 +1,42 @@
+= midos - A Ruby client for MIDOS databases
+
+== VERSION
+
+This documentation refers to midos version 0.0.0
+
+
+== DESCRIPTION
+
+Provides both read and write access for the flat file databases of MIDOS 2000
+and MIDOS 6 as well as MIDOS Thesaurus.
+
+
+== LINKS
+
+PROGRIS MIDOS:: http://progris.de/produkte.htm
+Documentation:: https://blackwinter.github.io/midos/
+Source code::   https://github.com/blackwinter/midos
+RubyGem::       https://rubygems.org/gems/midos
+
+
+== AUTHORS
+
+* Jens Wille <mailto:jens.wille@gmail.com>
+
+
+== LICENSE AND COPYRIGHT
+
+Copyright (C) 2014 Jens Wille
+
+midos is free software: you can redistribute it and/or modify it
+under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+midos is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public
+License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with midos. If not, see <http://www.gnu.org/licenses/>.
