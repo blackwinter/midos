@@ -23,4 +23,4 @@ script:
   rake spec
 
 install:
-  gem install --development midos
+  gem install --prerelease --development midos
