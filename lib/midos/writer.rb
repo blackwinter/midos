@@ -79,7 +79,7 @@ module Midos
 
     private
 
-    def write_i(id, record, io = io)
+    def write_i(id, record, io = io())
       return if record.empty?
 
       if @key && !record.key?(@key)

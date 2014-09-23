@@ -56,7 +56,7 @@ module Midos
       @vs = vs.is_a?(Regexp) ? vs : %r{\s*#{Regexp.escape(vs)}\s*}
     end
 
-    def parse(io = io, &block)
+    def parse(io = io(), &block)
       unless block
         records, block = @records, amend_block { |id, record|
           records[id] = record
