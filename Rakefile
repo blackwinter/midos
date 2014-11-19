@@ -1,4 +1,4 @@
-require File.expand_path(%q{../lib/midos/version}, __FILE__)
+require_relative 'lib/midos/version'
 
 begin
   require 'hen'
