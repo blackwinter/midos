@@ -36,7 +36,7 @@ module Midos
 
       def file_method(method, mode, file, options = {}, *args, &block)
         Midos.open_file(file, options, mode) { |io|
-          args.unshift(options.merge(:io => io))
+          args.unshift(options.merge(io: io))
           method ? send(method, *args, &block) : block[new(*args)]
         }
       end
