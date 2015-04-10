@@ -5,7 +5,7 @@
 #                                                                             #
 # midos -- A Ruby client for MIDOS databases                                  #
 #                                                                             #
-# Copyright (C) 2014 Jens Wille                                               #
+# Copyright (C) 2014-2015 Jens Wille                                          #
 #                                                                             #
 # Authors:                                                                    #
 #     Jens Wille <jens.wille@gmail.com>                                       #
