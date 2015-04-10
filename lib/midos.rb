@@ -5,7 +5,7 @@
 #                                                                             #
 # midos -- A Ruby client for MIDOS databases                                  #
 #                                                                             #
-# Copyright (C) 2014 Jens Wille                                               #
+# Copyright (C) 2014-2015 Jens Wille                                          #
 #                                                                             #
 # Authors:                                                                    #
 #     Jens Wille <jens.wille@gmail.com>                                       #
@@ -49,7 +49,7 @@ module Midos
   class << self
 
     def filter(source, target, source_options = {}, target_options = source_options)
-      writer, size = Writer.new(target_options.merge(:io => target)),  0
+      writer, size = Writer.new(target_options.merge(io: target)), 0
 
       Reader.parse(source, source_options) { |*args|
         writer << args and size += 1 if yield(*args)
@@ -76,7 +76,7 @@ module Midos
 
     def open_file(file, options = {}, mode = 'r', &block)
       encoding = options[:encoding] ||= DEFAULT_ENCODING
-      File.open(file, mode, :encoding => encoding, &block)
+      File.open(file, mode, encoding: encoding, &block)
     end
 
   end
