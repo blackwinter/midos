@@ -5,6 +5,7 @@
 == 0.1.0 [unreleased]
 
 * Added Gzip support to Midos.open_file.
+* Added Midos.uniq and Midos.uniq_file.
 
 == 0.0.3 [2015-04-10]
 

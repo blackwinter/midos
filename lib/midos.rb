@@ -74,6 +74,14 @@ module Midos
       filter_file(*args) { |*| true }
     end
 
+    def uniq(*args)
+      uniq_wrapper { |block| filter(*args, &block) }
+    end
+
+    def uniq_file(*args)
+      uniq_wrapper { |block| filter_file(*args, &block) }
+    end
+
     def open_file(file, options = {}, mode = 'r', &block)
       encoding = options[:encoding] ||= DEFAULT_ENCODING
 
@@ -85,6 +93,15 @@ module Midos
       else
         File.open(file, mode, encoding: encoding, &block)
       end
+    end
+
+    private
+
+    def uniq_wrapper
+      require 'nuggets/hash/seen'
+
+      seen = Hash.seen
+      yield lambda { |id, *| !seen[id] }
     end
 
   end
