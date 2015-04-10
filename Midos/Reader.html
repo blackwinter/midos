@@ -4,21 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class Midos::Reader - midos Application documentation (v0.0.2)</title>
-
-<link href="../fonts.css" rel="stylesheet">
-<link href="../rdoc.css" rel="stylesheet">
+<title>class Midos::Reader - midos Application documentation (v0.0.3)</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
 </script>
 
 <script src="../js/jquery.js"></script>
-<script src="../js/navigation.js"></script>
-<script src="../js/search_index.js"></script>
-<script src="../js/search.js"></script>
-<script src="../js/searcher.js"></script>
 <script src="../js/darkfish.js"></script>
+
+<link href="../css/fonts.css" rel="stylesheet">
+<link href="../css/rdoc.css" rel="stylesheet">
+
 
 
 <body id="top" role="document" class="class">
@@ -73,11 +70,13 @@
 
   <ul class="link-list" role="directory">
     
+    <li ><a href="#method-c-parse">::parse</a>
+    
+    <li ><a href="#method-c-parse_file">::parse_file</a>
+    
     <li ><a href="#method-i-amend_block">#amend_block</a>
     
     <li ><a href="#method-i-parse">#parse</a>
-    
-    <li ><a href="#method-i-parse_file">#parse_file</a>
     
     <li class="calls-super" ><a href="#method-i-reset">#reset</a>
     
@@ -146,13 +145,13 @@
     
 
     
-     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
        <header>
-         <h3>Public Instance Methods</h3>
+         <h3>Public Class Methods</h3>
        </header>
 
     
-      <div id="method-i-parse" class="method-detail ">
+      <div id="method-c-parse" class="method-detail ">
         
         <div class="method-heading">
           <span class="method-name">parse</span><span
@@ -186,7 +185,7 @@
       </div>
 
     
-      <div id="method-i-parse_file" class="method-detail ">
+      <div id="method-c-parse_file" class="method-detail ">
         
         <div class="method-heading">
           <span class="method-name">parse_file</span><span
@@ -208,6 +207,78 @@
             <pre><span class="ruby-comment"># File lib/midos/reader.rb, line 41</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">parse_file</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
   <span class="ruby-identifier">file_method</span>(<span class="ruby-value">:parse</span>, <span class="ruby-string">&#39;r&#39;</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-parse" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">parse</span><span
+            class="method-args">(io = io(), &block)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="parse-source">
+            <pre><span class="ruby-comment"># File lib/midos/reader.rb, line 58</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">parse</span>(<span class="ruby-identifier">io</span> = <span class="ruby-identifier">io</span>(), <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">block</span>
+    <span class="ruby-identifier">records</span>, <span class="ruby-identifier">block</span> = <span class="ruby-ivar">@records</span>, <span class="ruby-identifier">amend_block</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">id</span>, <span class="ruby-identifier">record</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">records</span>[<span class="ruby-identifier">id</span>] = <span class="ruby-identifier">record</span>
+    }
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">rs</span>, <span class="ruby-identifier">fs</span>, <span class="ruby-identifier">vs</span>, <span class="ruby-identifier">nl</span>, <span class="ruby-identifier">le</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">auto_id</span>, <span class="ruby-identifier">id</span>, <span class="ruby-identifier">record</span> =
+    <span class="ruby-ivar">@rs</span>, <span class="ruby-ivar">@fs</span>, <span class="ruby-ivar">@vs</span>, <span class="ruby-ivar">@nl</span>, <span class="ruby-ivar">@le</span>, <span class="ruby-ivar">@key</span>, <span class="ruby-ivar">@auto_id</span>, <span class="ruby-keyword">nil</span>, {}
+
+  <span class="ruby-identifier">io</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">line</span> = <span class="ruby-identifier">line</span>.<span class="ruby-identifier">chomp</span>(<span class="ruby-identifier">le</span>)
+
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">line</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">rs</span>
+      <span class="ruby-identifier">block</span>[<span class="ruby-identifier">key</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">id</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">auto_id</span>.<span class="ruby-identifier">call</span>, <span class="ruby-identifier">record</span>]
+      <span class="ruby-identifier">id</span>, <span class="ruby-identifier">record</span> = <span class="ruby-keyword">nil</span>, {}
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span> = <span class="ruby-identifier">line</span>.<span class="ruby-identifier">split</span>(<span class="ruby-identifier">fs</span>, <span class="ruby-value">2</span>)
+
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">k</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">v</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">k</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">key</span>
+          <span class="ruby-identifier">id</span> = <span class="ruby-identifier">v</span>
+        <span class="ruby-keyword">else</span>
+          <span class="ruby-identifier">v</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-identifier">nl</span>, <span class="ruby-string">&quot;\n&quot;</span>)
+          <span class="ruby-identifier">v</span> = <span class="ruby-identifier">v</span>.<span class="ruby-identifier">split</span>(<span class="ruby-identifier">vs</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">v</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">vs</span>)
+        <span class="ruby-keyword">end</span>
+
+        <span class="ruby-identifier">record</span>[<span class="ruby-identifier">k</span>] = <span class="ruby-identifier">v</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  }
+
+  <span class="ruby-keyword">self</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -354,7 +425,7 @@
 
 <footer id="validator-badges" role="contentinfo">
   <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://rdoc.rubyforge.org">RDoc</a> 4.1.1.
-  <p>Based on <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

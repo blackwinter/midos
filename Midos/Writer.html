@@ -4,21 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class Midos::Writer - midos Application documentation (v0.0.2)</title>
-
-<link href="../fonts.css" rel="stylesheet">
-<link href="../rdoc.css" rel="stylesheet">
+<title>class Midos::Writer - midos Application documentation (v0.0.3)</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
 </script>
 
 <script src="../js/jquery.js"></script>
-<script src="../js/navigation.js"></script>
-<script src="../js/search_index.js"></script>
-<script src="../js/search.js"></script>
-<script src="../js/searcher.js"></script>
 <script src="../js/darkfish.js"></script>
+
+<link href="../css/fonts.css" rel="stylesheet">
+<link href="../css/rdoc.css" rel="stylesheet">
+
 
 
 <body id="top" role="document" class="class">
@@ -73,17 +70,19 @@
 
   <ul class="link-list" role="directory">
     
-    <li ><a href="#method-i-3C-3C">#&lt;&lt;</a>
+    <li ><a href="#method-c-open">::open</a>
     
-    <li ><a href="#method-i-open">#open</a>
+    <li ><a href="#method-c-write">::write</a>
+    
+    <li ><a href="#method-c-write_file">::write_file</a>
+    
+    <li ><a href="#method-i-3C-3C">#&lt;&lt;</a>
     
     <li ><a href="#method-i-put">#put</a>
     
     <li ><a href="#method-i-vs-3D">#vs=</a>
     
     <li ><a href="#method-i-write">#write</a>
-    
-    <li ><a href="#method-i-write_file">#write_file</a>
     
     <li ><a href="#method-i-write_i">#write_i</a>
     
@@ -129,6 +128,113 @@
     
 
     
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-open" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">open</span><span
+            class="method-args">(*args, &block)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="open-source">
+            <pre><span class="ruby-comment"># File lib/midos/writer.rb, line 46</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">open</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-identifier">file_method</span>(<span class="ruby-keyword">nil</span>, <span class="ruby-string">&#39;w&#39;</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-write" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">write</span><span
+            class="method-args">(*args, &block)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="write-source">
+            <pre><span class="ruby-comment"># File lib/midos/writer.rb, line 38</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">write</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-identifier">new</span>(<span class="ruby-identifier">extract_options!</span>(<span class="ruby-identifier">args</span>), <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>).<span class="ruby-identifier">write</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-write_file" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">write_file</span><span
+            class="method-args">(*args, &block)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="write_file-source">
+            <pre><span class="ruby-comment"># File lib/midos/writer.rb, line 42</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">write_file</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-identifier">file_method</span>(<span class="ruby-value">:write</span>, <span class="ruby-string">&#39;w&#39;</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
      <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
        <header>
          <h3>Public Instance Methods</h3>
@@ -159,39 +265,6 @@
         <div class="aliases">
           Alias for: <a href="Writer.html#method-i-put">put</a>
         </div>
-        
-      </div>
-
-    
-      <div id="method-i-open" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">open</span><span
-            class="method-args">(*args, &block)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="open-source">
-            <pre><span class="ruby-comment"># File lib/midos/writer.rb, line 46</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">open</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-  <span class="ruby-identifier">file_method</span>(<span class="ruby-keyword">nil</span>, <span class="ruby-string">&#39;w&#39;</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
         
       </div>
 
@@ -277,7 +350,7 @@
         
         <div class="method-heading">
           <span class="method-name">write</span><span
-            class="method-args">(*args, &block)</span>
+            class="method-args">(records, *args)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -292,42 +365,15 @@
 
           
           <div class="method-source-code" id="write-source">
-            <pre><span class="ruby-comment"># File lib/midos/writer.rb, line 38</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">write</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-  <span class="ruby-identifier">new</span>(<span class="ruby-identifier">extract_options!</span>(<span class="ruby-identifier">args</span>), <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>).<span class="ruby-identifier">write</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
+            <pre><span class="ruby-comment"># File lib/midos/writer.rb, line 57</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">write</span>(<span class="ruby-identifier">records</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">records</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
+    <span class="ruby-identifier">records</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">id</span>, <span class="ruby-identifier">record</span><span class="ruby-operator">|</span> <span class="ruby-identifier">write_i</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">record</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>) }
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">records</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">record</span><span class="ruby-operator">|</span> <span class="ruby-identifier">write_i</span>(<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">record</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>) }
+  <span class="ruby-keyword">end</span>
 
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-write_file" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">write_file</span><span
-            class="method-args">(*args, &block)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="write_file-source">
-            <pre><span class="ruby-comment"># File lib/midos/writer.rb, line 42</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">write_file</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-  <span class="ruby-identifier">file_method</span>(<span class="ruby-value">:write</span>, <span class="ruby-string">&#39;w&#39;</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-keyword">self</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -351,7 +397,7 @@
         
         <div class="method-heading">
           <span class="method-name">write_i</span><span
-            class="method-args">(id, record, io = io)</span>
+            class="method-args">(id, record, io = io())</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -367,7 +413,7 @@
           
           <div class="method-source-code" id="write_i-source">
             <pre><span class="ruby-comment"># File lib/midos/writer.rb, line 81</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">write_i</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">record</span>, <span class="ruby-identifier">io</span> = <span class="ruby-identifier">io</span>)
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">write_i</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">record</span>, <span class="ruby-identifier">io</span> = <span class="ruby-identifier">io</span>())
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">record</span>.<span class="ruby-identifier">empty?</span>
 
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@key</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">record</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-ivar">@key</span>)
@@ -405,7 +451,7 @@
 
 <footer id="validator-badges" role="contentinfo">
   <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://rdoc.rubyforge.org">RDoc</a> 4.1.1.
-  <p>Based on <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

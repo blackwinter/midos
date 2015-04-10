@@ -4,21 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class Midos::Base - midos Application documentation (v0.0.2)</title>
-
-<link href="../fonts.css" rel="stylesheet">
-<link href="../rdoc.css" rel="stylesheet">
+<title>class Midos::Base - midos Application documentation (v0.0.3)</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
 </script>
 
 <script src="../js/jquery.js"></script>
-<script src="../js/navigation.js"></script>
-<script src="../js/search_index.js"></script>
-<script src="../js/search.js"></script>
-<script src="../js/searcher.js"></script>
 <script src="../js/darkfish.js"></script>
+
+<link href="../css/fonts.css" rel="stylesheet">
+<link href="../css/rdoc.css" rel="stylesheet">
+
 
 
 <body id="top" role="document" class="class">
@@ -73,13 +70,13 @@
 
   <ul class="link-list" role="directory">
     
+    <li ><a href="#method-c-extract_options-21">::extract_options!</a>
+    
+    <li ><a href="#method-c-file_method">::file_method</a>
+    
     <li ><a href="#method-c-new">::new</a>
     
     <li ><a href="#method-i-default_auto_id">#default_auto_id</a>
-    
-    <li ><a href="#method-i-extract_options-21">#extract_options!</a>
-    
-    <li ><a href="#method-i-file_method">#file_method</a>
     
     <li ><a href="#method-i-reset">#reset</a>
     
@@ -274,6 +271,83 @@
     
     </section>
   
+     <section id="private-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Private Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-extract_options-21" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">extract_options!</span><span
+            class="method-args">(args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="extract_options-21-source">
+            <pre><span class="ruby-comment"># File lib/midos/base.rb, line 43</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_options!</span>(<span class="ruby-identifier">args</span>)
+  <span class="ruby-identifier">args</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">pop</span> <span class="ruby-operator">:</span> {}
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-file_method" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">file_method</span><span
+            class="method-args">(method, mode, file, options = {}, *args, &block)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="file_method-source">
+            <pre><span class="ruby-comment"># File lib/midos/base.rb, line 36</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">file_method</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">mode</span>, <span class="ruby-identifier">file</span>, <span class="ruby-identifier">options</span> = {}, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-constant">Midos</span>.<span class="ruby-identifier">open_file</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">options</span>, <span class="ruby-identifier">mode</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">io</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">args</span>.<span class="ruby-identifier">unshift</span>(<span class="ruby-identifier">options</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">io</span><span class="ruby-operator">:</span> <span class="ruby-identifier">io</span>))
+    <span class="ruby-identifier">method</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">send</span>(<span class="ruby-identifier">method</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">block</span>[<span class="ruby-identifier">new</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)]
+  }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
      <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
        <header>
          <h3>Public Instance Methods</h3>
@@ -354,75 +428,6 @@
       </div>
 
     
-      <div id="method-i-extract_options-21" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">extract_options!</span><span
-            class="method-args">(args)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="extract_options-21-source">
-            <pre><span class="ruby-comment"># File lib/midos/base.rb, line 43</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_options!</span>(<span class="ruby-identifier">args</span>)
-  <span class="ruby-identifier">args</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">pop</span> <span class="ruby-operator">:</span> {}
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-i-file_method" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">file_method</span><span
-            class="method-args">(method, mode, file, options = {}, *args, &block)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="file_method-source">
-            <pre><span class="ruby-comment"># File lib/midos/base.rb, line 36</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">file_method</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">mode</span>, <span class="ruby-identifier">file</span>, <span class="ruby-identifier">options</span> = {}, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-  <span class="ruby-constant">Midos</span>.<span class="ruby-identifier">open_file</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">options</span>, <span class="ruby-identifier">mode</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">io</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">args</span>.<span class="ruby-identifier">unshift</span>(<span class="ruby-identifier">options</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-value">:io</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">io</span>))
-    <span class="ruby-identifier">method</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">send</span>(<span class="ruby-identifier">method</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">block</span>[<span class="ruby-identifier">new</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)]
-  }
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
     </section>
   
   </section>
@@ -431,7 +436,7 @@
 
 <footer id="validator-badges" role="contentinfo">
   <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://rdoc.rubyforge.org">RDoc</a> 4.1.1.
-  <p>Based on <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 
