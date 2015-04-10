@@ -76,7 +76,15 @@ module Midos
 
     def open_file(file, options = {}, mode = 'r', &block)
       encoding = options[:encoding] ||= DEFAULT_ENCODING
-      File.open(file, mode, encoding: encoding, &block)
+
+      if file =~ /\.gz\z/i
+        require 'zlib'
+
+        gzip = mode.include?('w') ? Zlib::GzipWriter : Zlib::GzipReader
+        gzip.open(file, encoding: encoding, &block)
+      else
+        File.open(file, mode, encoding: encoding, &block)
+      end
     end
 
   end
