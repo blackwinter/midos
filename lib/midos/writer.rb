@@ -56,21 +56,17 @@ module Midos
     end
 
     def write(records, *args)
-      if records.is_a?(Hash)
+      !records.is_a?(Hash) ?
+        records.each { |record| write_i(nil, record, *args) } :
         records.each { |id, record| write_i(id, record, *args) }
-      else
-        records.each { |record| write_i(nil, record, *args) }
-      end
 
       self
     end
 
     def put(record, *args)
-      if record.is_a?(Hash)
-        write_i(nil, record, *args)
-      else
+      record.is_a?(Hash) ?
+        write_i(nil, record, *args) :
         write_i(*args.unshift(*record))
-      end
 
       self
     end
@@ -82,22 +78,25 @@ module Midos
     def write_i(id, record, io = io())
       return if record.empty?
 
-      if @key && !record.key?(@key)
-        record[@key] = id || @auto_id.call
+      rs, fs, vs, nl, le, key, auto_id =
+        @rs, @fs, @vs, @nl, @le, @key, @auto_id
+
+      if key && !record.key?(key)
+        record[key] = id || auto_id.call
       end
 
       record.each { |k, v|
         if v
           if k
-            v = v.is_a?(Array) ? v.join(@vs) : v.to_s
-            io << k << @fs << v.gsub("\n", @nl) << @le
+            v = v.is_a?(Array) ? v.join(vs) : v.to_s
+            io << k << fs << v.gsub("\n", nl) << le
           else
-            Array(v).each { |w| io << w.to_s << @le }
+            Array(v).each { |w| io << w.to_s << le }
           end
         end
       }
 
-      io << @rs << @le << @le
+      io << rs << le << le
     end
 
     class Thesaurus < self
@@ -154,7 +153,8 @@ module Midos
       class << self
 
         def write(*args, &block)
-          new(extract_options!(args), &block).instruct! { |mth| mth.write(*args) }
+          new(extract_options!(args), &block)
+            .instruct! { |mth| mth.write(*args) }
         end
 
         def open(*args, &block)
@@ -187,14 +187,15 @@ module Midos
 
         records.each { |id, record|
           new_record = hash[id] = {}
-          record.each { |key, value| new_record[key] = resolve(key, value, *args) }
+
+          record.each { |key, value|
+            new_record[key] = resolve(key, value, *args) }
         }
       end
 
       def resolve_from_to(from = nil, to = prologue[RESOLVE_TO])
-        if from.nil? || from == true
-          from = prologue.values_at(*RESOLVE_FROM).map { |v| v.split('~').first }
-        end
+        from = prologue.values_at(*RESOLVE_FROM)
+          .map { |v| v.split('~').first } if from.nil? || from == true
 
         [from, to]
       end

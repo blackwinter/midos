@@ -5,7 +5,7 @@
 #                                                                             #
 # midos -- A Ruby client for MIDOS databases                                  #
 #                                                                             #
-# Copyright (C) 2014 Jens Wille                                               #
+# Copyright (C) 2014-2015 Jens Wille                                          #
 #                                                                             #
 # Authors:                                                                    #
 #     Jens Wille <jens.wille@gmail.com>                                       #
@@ -50,14 +50,15 @@ module Midos
     def initialize(options = {}, &block)
       self.key = options[:key]
 
-      self.rs = options[:rs] || DEFAULT_RS
-      self.fs = options[:fs] || DEFAULT_FS
-      self.vs = options[:vs] || DEFAULT_VS
-      self.nl = options[:nl] || DEFAULT_NL
-      self.le = options[:le] || DEFAULT_LE
-      self.io = options[:io] || self.class::DEFAULT_IO
+      self.rs = options.fetch(:rs, DEFAULT_RS)
+      self.fs = options.fetch(:fs, DEFAULT_FS)
+      self.vs = options.fetch(:vs, DEFAULT_VS)
+      self.nl = options.fetch(:nl, DEFAULT_NL)
+      self.le = options.fetch(:le, DEFAULT_LE)
+      self.io = options.fetch(:io, self.class::DEFAULT_IO)
 
-      @auto_id_block = options[:auto_id] || block
+      @auto_id_block = options.fetch(:auto_id, block)
+
       reset
     end
 
