@@ -41,6 +41,10 @@ module Midos
         }
       end
 
+      def replacements_for(*args)
+        args.map { |a| "%#{a.bytes.map { |b| b.to_s(16) }.join.upcase}" }
+      end
+
       def extract_options!(args)
         args.last.is_a?(Hash) ? args.pop : {}
       end

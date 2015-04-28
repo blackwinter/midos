@@ -43,6 +43,17 @@ module Midos
         file_method(:parse, 'r', *args, &block)
       end
 
+      def transform(value, vs, nl)
+        rvs, rnl = replacements_for(vs, nl)
+
+        value.gsub!(nl, "\n")
+        value.gsub!(rvs, nl)
+
+        !value.index(vs) ?
+          value.gsub!(rnl, vs) || value :
+          value.split(vs).each { |v| v.gsub!(rnl, vs) }
+      end
+
     end
 
     attr_reader :records
@@ -63,8 +74,7 @@ module Midos
         }
       end
 
-      rs, fs, vs, nl, le, key, auto_id, id, record =
-        @rs, @fs, @vs, @nl, @le, @key, @auto_id, nil, {}
+      id, record = nil, {}
 
       io.each { |line|
         line = line.chomp(le)
@@ -74,17 +84,7 @@ module Midos
           id, record = nil, {}
         else
           k, v = line.split(fs, 2)
-
-          if k && v
-            if k == key
-              id = v
-            else
-              v.gsub!(nl, "\n")
-              v = v.split(vs) if v.index(vs)
-            end
-
-            record[k] = v
-          end
+          record[k] = k == key ? id = v : transform(v) if k && v
         end
       }
 
@@ -92,6 +92,10 @@ module Midos
     end
 
     private
+
+    def transform(value)
+      self.class.transform(value, vs, nl)
+    end
 
     def amend_block(&block)
       return block unless $VERBOSE && k = @key

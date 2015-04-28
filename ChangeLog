@@ -4,6 +4,7 @@
 
 == 0.1.0 [unreleased]
 
+* Percent-encode special characters <tt>^</tt> and <tt>|</tt>.
 * Added Gzip support to Midos.open_file.
 * Added Midos.uniq and Midos.uniq_file.
 

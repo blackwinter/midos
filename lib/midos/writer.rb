@@ -48,6 +48,19 @@ module Midos
         file_method(nil, 'w', *args, &block)
       end
 
+      def transform(value, vs, nl)
+        rvs, rnl = replacements_for(vs, nl)
+
+        value = !value.is_a?(Array) ?
+          value.to_s.gsub(vs, rvs) :
+          value.map { |v| v.gsub(vs, rvs) }.join(vs)
+
+        value.gsub!(nl, rnl)
+        value.gsub!("\n", nl)
+
+        value
+      end
+
     end
 
     def vs=(vs)
@@ -78,25 +91,18 @@ module Midos
     def write_i(id, record, io = io())
       return if record.empty?
 
-      rs, fs, vs, nl, le, key, auto_id =
-        @rs, @fs, @vs, @nl, @le, @key, @auto_id
-
-      if key && !record.key?(key)
-        record[key] = id || auto_id.call
-      end
+      record[key] = id || auto_id.call if key && !record.key?(key)
 
       record.each { |k, v|
-        if v
-          if k
-            v = v.is_a?(Array) ? v.join(vs) : v.to_s
-            io << k << fs << v.gsub("\n", nl) << le
-          else
-            Array(v).each { |w| io << w.to_s << le }
-          end
-        end
+        k ? io << k << fs << transform(v) << le :
+         Array(v).each { |w| io << w.to_s << le } if v
       }
 
       io << rs << le << le
+    end
+
+    def transform(value)
+      self.class.transform(value, vs, nl)
     end
 
     class Thesaurus < self
