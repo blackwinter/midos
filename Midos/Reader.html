@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class Midos::Reader - midos Application documentation (v0.0.3)</title>
+<title>class Midos::Reader - midos Application documentation (v0.1.0)</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
@@ -74,11 +74,15 @@
     
     <li ><a href="#method-c-parse_file">::parse_file</a>
     
+    <li ><a href="#method-c-transform">::transform</a>
+    
     <li ><a href="#method-i-amend_block">#amend_block</a>
     
     <li ><a href="#method-i-parse">#parse</a>
     
     <li class="calls-super" ><a href="#method-i-reset">#reset</a>
+    
+    <li ><a href="#method-i-transform">#transform</a>
     
     <li ><a href="#method-i-vs-3D">#vs=</a>
     
@@ -218,6 +222,46 @@
       </div>
 
     
+      <div id="method-c-transform" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">transform</span><span
+            class="method-args">(value, vs, nl)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="transform-source">
+            <pre><span class="ruby-comment"># File lib/midos/reader.rb, line 45</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">transform</span>(<span class="ruby-identifier">value</span>, <span class="ruby-identifier">vs</span>, <span class="ruby-identifier">nl</span>)
+  <span class="ruby-identifier">rvs</span>, <span class="ruby-identifier">rnl</span> = <span class="ruby-identifier">replacements_for</span>(<span class="ruby-identifier">vs</span>, <span class="ruby-identifier">nl</span>)
+
+  <span class="ruby-identifier">value</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-identifier">nl</span>, <span class="ruby-string">&quot;\n&quot;</span>)
+  <span class="ruby-identifier">value</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-identifier">rvs</span>, <span class="ruby-identifier">nl</span>)
+
+  <span class="ruby-operator">!</span><span class="ruby-identifier">value</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">vs</span>) <span class="ruby-operator">?</span>
+    <span class="ruby-identifier">value</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-identifier">rnl</span>, <span class="ruby-identifier">vs</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">value</span> <span class="ruby-operator">:</span>
+    <span class="ruby-identifier">value</span>.<span class="ruby-identifier">split</span>(<span class="ruby-identifier">vs</span>).<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">v</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-identifier">rnl</span>, <span class="ruby-identifier">vs</span>) }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
     </section>
   
      <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
@@ -245,7 +289,7 @@
 
           
           <div class="method-source-code" id="parse-source">
-            <pre><span class="ruby-comment"># File lib/midos/reader.rb, line 58</span>
+            <pre><span class="ruby-comment"># File lib/midos/reader.rb, line 69</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">parse</span>(<span class="ruby-identifier">io</span> = <span class="ruby-identifier">io</span>(), <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">block</span>
     <span class="ruby-identifier">records</span>, <span class="ruby-identifier">block</span> = <span class="ruby-ivar">@records</span>, <span class="ruby-identifier">amend_block</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">id</span>, <span class="ruby-identifier">record</span><span class="ruby-operator">|</span>
@@ -253,8 +297,7 @@
     }
   <span class="ruby-keyword">end</span>
 
-  <span class="ruby-identifier">rs</span>, <span class="ruby-identifier">fs</span>, <span class="ruby-identifier">vs</span>, <span class="ruby-identifier">nl</span>, <span class="ruby-identifier">le</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">auto_id</span>, <span class="ruby-identifier">id</span>, <span class="ruby-identifier">record</span> =
-    <span class="ruby-ivar">@rs</span>, <span class="ruby-ivar">@fs</span>, <span class="ruby-ivar">@vs</span>, <span class="ruby-ivar">@nl</span>, <span class="ruby-ivar">@le</span>, <span class="ruby-ivar">@key</span>, <span class="ruby-ivar">@auto_id</span>, <span class="ruby-keyword">nil</span>, {}
+  <span class="ruby-identifier">id</span>, <span class="ruby-identifier">record</span> = <span class="ruby-keyword">nil</span>, {}
 
   <span class="ruby-identifier">io</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">line</span> = <span class="ruby-identifier">line</span>.<span class="ruby-identifier">chomp</span>(<span class="ruby-identifier">le</span>)
@@ -264,17 +307,7 @@
       <span class="ruby-identifier">id</span>, <span class="ruby-identifier">record</span> = <span class="ruby-keyword">nil</span>, {}
     <span class="ruby-keyword">else</span>
       <span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span> = <span class="ruby-identifier">line</span>.<span class="ruby-identifier">split</span>(<span class="ruby-identifier">fs</span>, <span class="ruby-value">2</span>)
-
-      <span class="ruby-keyword">if</span> <span class="ruby-identifier">k</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">v</span>
-        <span class="ruby-keyword">if</span> <span class="ruby-identifier">k</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">key</span>
-          <span class="ruby-identifier">id</span> = <span class="ruby-identifier">v</span>
-        <span class="ruby-keyword">else</span>
-          <span class="ruby-identifier">v</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-identifier">nl</span>, <span class="ruby-string">&quot;\n&quot;</span>)
-          <span class="ruby-identifier">v</span> = <span class="ruby-identifier">v</span>.<span class="ruby-identifier">split</span>(<span class="ruby-identifier">vs</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">v</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">vs</span>)
-        <span class="ruby-keyword">end</span>
-
-        <span class="ruby-identifier">record</span>[<span class="ruby-identifier">k</span>] = <span class="ruby-identifier">v</span>
-      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">record</span>[<span class="ruby-identifier">k</span>] = <span class="ruby-identifier">k</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">key</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">id</span> = <span class="ruby-identifier">v</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">transform</span>(<span class="ruby-identifier">v</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">k</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">v</span>
     <span class="ruby-keyword">end</span>
   }
 
@@ -314,7 +347,7 @@
 
           
           <div class="method-source-code" id="reset-source">
-            <pre><span class="ruby-comment"># File lib/midos/reader.rb, line 49</span>
+            <pre><span class="ruby-comment"># File lib/midos/reader.rb, line 60</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">reset</span>
   <span class="ruby-keyword">super</span>
   <span class="ruby-ivar">@records</span> = {}
@@ -348,7 +381,7 @@
 
           
           <div class="method-source-code" id="vs-3D-source">
-            <pre><span class="ruby-comment"># File lib/midos/reader.rb, line 54</span>
+            <pre><span class="ruby-comment"># File lib/midos/reader.rb, line 65</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">vs=</span>(<span class="ruby-identifier">vs</span>)
   <span class="ruby-ivar">@vs</span> = <span class="ruby-identifier">vs</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Regexp</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">vs</span> <span class="ruby-operator">:</span> <span class="ruby-node">%r{\s*#{Regexp.escape(vs)}\s*}</span>
 <span class="ruby-keyword">end</span></pre>
@@ -389,7 +422,7 @@
 
           
           <div class="method-source-code" id="amend_block-source">
-            <pre><span class="ruby-comment"># File lib/midos/reader.rb, line 95</span>
+            <pre><span class="ruby-comment"># File lib/midos/reader.rb, line 99</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">amend_block</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">block</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">$VERBOSE</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">k</span> = <span class="ruby-ivar">@key</span>
 
@@ -406,6 +439,39 @@
 
     <span class="ruby-identifier">block</span>[<span class="ruby-identifier">id</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>]
   }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-transform" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">transform</span><span
+            class="method-args">(value)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="transform-source">
+            <pre><span class="ruby-comment"># File lib/midos/reader.rb, line 95</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">transform</span>(<span class="ruby-identifier">value</span>)
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">transform</span>(<span class="ruby-identifier">value</span>, <span class="ruby-identifier">vs</span>, <span class="ruby-identifier">nl</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           

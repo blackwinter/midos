@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class Midos::Base - midos Application documentation (v0.0.3)</title>
+<title>class Midos::Base - midos Application documentation (v0.1.0)</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
@@ -75,6 +75,8 @@
     <li ><a href="#method-c-file_method">::file_method</a>
     
     <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-c-replacements_for">::replacements_for</a>
     
     <li ><a href="#method-i-default_auto_id">#default_auto_id</a>
     
@@ -245,18 +247,19 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/midos/base.rb, line 49</span>
+            <pre><span class="ruby-comment"># File lib/midos/base.rb, line 53</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">options</span> = {}, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">key</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:key</span>]
 
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">rs</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:rs</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_RS</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">fs</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:fs</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_FS</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">vs</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:vs</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_VS</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">nl</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:nl</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_NL</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">le</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:le</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_LE</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">io</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:io</span>] <span class="ruby-operator">||</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span><span class="ruby-operator">::</span><span class="ruby-constant">DEFAULT_IO</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">rs</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:rs</span>, <span class="ruby-constant">DEFAULT_RS</span>)
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">fs</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:fs</span>, <span class="ruby-constant">DEFAULT_FS</span>)
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">vs</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:vs</span>, <span class="ruby-constant">DEFAULT_VS</span>)
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">nl</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:nl</span>, <span class="ruby-constant">DEFAULT_NL</span>)
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">le</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:le</span>, <span class="ruby-constant">DEFAULT_LE</span>)
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">io</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:io</span>, <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span><span class="ruby-operator">::</span><span class="ruby-constant">DEFAULT_IO</span>)
 
-  <span class="ruby-ivar">@auto_id_block</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:auto_id</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">block</span>
+  <span class="ruby-ivar">@auto_id_block</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:auto_id</span>, <span class="ruby-identifier">block</span>)
+
   <span class="ruby-identifier">reset</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -296,7 +299,7 @@
 
           
           <div class="method-source-code" id="extract_options-21-source">
-            <pre><span class="ruby-comment"># File lib/midos/base.rb, line 43</span>
+            <pre><span class="ruby-comment"># File lib/midos/base.rb, line 47</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_options!</span>(<span class="ruby-identifier">args</span>)
   <span class="ruby-identifier">args</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">pop</span> <span class="ruby-operator">:</span> {}
 <span class="ruby-keyword">end</span></pre>
@@ -346,6 +349,39 @@
       </div>
 
     
+      <div id="method-c-replacements_for" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">replacements_for</span><span
+            class="method-args">(*args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="replacements_for-source">
+            <pre><span class="ruby-comment"># File lib/midos/base.rb, line 43</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">replacements_for</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+  <span class="ruby-identifier">args</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">a</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;%#{a.bytes.map { |b| b.to_s(16) }.join.upcase}&quot;</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
     </section>
   
      <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
@@ -373,7 +409,7 @@
 
           
           <div class="method-source-code" id="reset-source">
-            <pre><span class="ruby-comment"># File lib/midos/base.rb, line 67</span>
+            <pre><span class="ruby-comment"># File lib/midos/base.rb, line 72</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">reset</span>
   <span class="ruby-ivar">@auto_id</span> = <span class="ruby-ivar">@auto_id_block</span> <span class="ruby-operator">?</span> <span class="ruby-ivar">@auto_id_block</span>.<span class="ruby-identifier">call</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">default_auto_id</span>
 <span class="ruby-keyword">end</span></pre>
@@ -414,7 +450,7 @@
 
           
           <div class="method-source-code" id="default_auto_id-source">
-            <pre><span class="ruby-comment"># File lib/midos/base.rb, line 73</span>
+            <pre><span class="ruby-comment"># File lib/midos/base.rb, line 78</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">default_auto_id</span>(<span class="ruby-identifier">n</span> = <span class="ruby-value">0</span>)
   <span class="ruby-identifier">lambda</span> { <span class="ruby-identifier">n</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span> }
 <span class="ruby-keyword">end</span></pre>
