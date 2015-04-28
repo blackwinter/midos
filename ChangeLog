@@ -2,7 +2,7 @@
 
 = Revision history for midos
 
-== 0.1.0 [unreleased]
+== 0.1.0 [2015-04-28]
 
 * Percent-encode special characters <tt>^</tt> and <tt>|</tt>.
 * Added Gzip support to Midos.open_file.
