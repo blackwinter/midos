@@ -43,15 +43,21 @@ module Midos
         file_method(:parse, 'r', *args, &block)
       end
 
-      def transform(value, vs, nl)
-        rvs, rnl = replacements_for(vs, nl)
+      def transform(value, nl, vs, ovs = nil)
+        rnl, rvs = replacements_for(*[nl, ovs].compact)
 
         value.gsub!(nl, "\n")
-        value.gsub!(rvs, nl)
+        value.gsub!(rnl, nl)
 
         !value.index(vs) ?
-          value.gsub!(rnl, vs) || value :
-          value.split(vs).each { |v| v.gsub!(rnl, vs) }
+          replace!(value, rvs, ovs) || value :
+          value.split(vs).each { |v| replace!(v, rvs, ovs) }
+      end
+
+      private
+
+      def replace!(value, rvs, ovs)
+        value.gsub!(rvs, ovs) if rvs
       end
 
     end
@@ -64,7 +70,8 @@ module Midos
     end
 
     def vs=(vs)
-      @vs = vs.is_a?(Regexp) ? vs : %r{\s*#{Regexp.escape(vs)}\s*}
+      @vs = vs.is_a?(Regexp) ? (@ovs = nil; vs) :
+        %r{\s*#{Regexp.escape(@ovs = vs)}\s*}
     end
 
     def parse(io = io(), &block)
@@ -94,7 +101,7 @@ module Midos
     private
 
     def transform(value)
-      self.class.transform(value, vs, nl)
+      self.class.transform(value, nl, vs, @ovs)
     end
 
     def amend_block(&block)
