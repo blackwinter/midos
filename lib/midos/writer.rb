@@ -63,6 +63,11 @@ module Midos
 
     end
 
+    def initialize(options = {})
+      @sort = options[:sort]
+      super
+    end
+
     def vs=(vs)
       vs.is_a?(String) ? @vs = vs : raise(TypeError,
         "wrong argument type #{vs.class} (expected String)")
@@ -93,7 +98,7 @@ module Midos
 
       record[key] = id || auto_id.call if key && !record.key?(key)
 
-      record.each { |k, v|
+      (@sort ? Hash[record.sort] : record).each { |k, v|
         k ? io << k << fs << transform(v) << le :
          Array(v).each { |w| io << w.to_s << le } if v
       }
