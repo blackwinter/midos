@@ -2,6 +2,12 @@
 
 = Revision history for midos
 
+== 0.2.0 [2015-10-02]
+
+* Added +sort+ option to Midos::Writer.
+* Added Midos::Writer#[]= convenience method.
+* Fixed Midos::Writer.transform to recognize any combination of CR/LF.
+
 == 0.1.1 [2015-06-11]
 
 * Fixed replacement of special characters in Midos::Reader.
