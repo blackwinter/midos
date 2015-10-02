@@ -56,7 +56,7 @@ module Midos
           value.map { |v| v.gsub(vs, rvs) }.join(vs)
 
         value.gsub!(nl, rnl)
-        value.gsub!("\n", nl)
+        value.gsub!(/\r\n?|\n/, nl)
 
         value
       end
