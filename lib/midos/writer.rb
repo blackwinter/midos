@@ -91,6 +91,10 @@ module Midos
 
     alias_method :<<, :put
 
+    def []=(id, record)
+      write_i(id, record)
+    end
+
     private
 
     def write_i(id, record, io = io())
