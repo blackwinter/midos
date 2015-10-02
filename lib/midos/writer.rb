@@ -37,15 +37,15 @@ module Midos
     class << self
 
       def write(*args, &block)
-        new(extract_options!(args), &block).write(*args)
+        new(args.extract_options!, &block).write(*args)
       end
 
       def write_file(*args, &block)
-        file_method(:write, 'w', *args, &block)
+        file_method(:write, 'wb', *args, &block)
       end
 
       def open(*args, &block)
-        file_method(nil, 'w', *args, &block)
+        file_method(nil, 'wb', *args, &block)
       end
 
       def transform(value, vs, nl)
@@ -168,7 +168,7 @@ module Midos
       class << self
 
         def write(*args, &block)
-          new(extract_options!(args), &block)
+          new(args.extract_options!, &block)
             .instruct! { |mth| mth.write(*args) }
         end
 

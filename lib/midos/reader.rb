@@ -35,7 +35,7 @@ module Midos
     class << self
 
       def parse(*args, &block)
-        reader = new(extract_options!(args)).parse(*args, &block)
+        reader = new(args.extract_options!).parse(*args, &block)
         block ? reader : reader.records
       end
 

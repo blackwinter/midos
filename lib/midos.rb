@@ -26,6 +26,8 @@
 ###############################################################################
 #++
 
+require 'nuggets/file/open_file'
+
 module Midos
 
   # Record separator
@@ -44,7 +46,7 @@ module Midos
   DEFAULT_LE = "\r\n"
 
   # Default file encoding
-  DEFAULT_ENCODING = 'iso-8859-1'
+  DEFAULT_ENCODING = 'ISO-8859-1'
 
   class << self
 
@@ -60,7 +62,7 @@ module Midos
 
     def filter_file(source_file, target_file, source_options = {}, target_options = source_options, &block)
       open_file(source_file, source_options) { |source|
-        open_file(target_file, target_options, 'w') { |target|
+        open_file(target_file, target_options, 'wb') { |target|
           filter(source, target, source_options, target_options, &block)
         }
       }
@@ -82,17 +84,9 @@ module Midos
       uniq_wrapper { |block| filter_file(*args, &block) }
     end
 
-    def open_file(file, options = {}, mode = 'r', &block)
-      encoding = options[:encoding] ||= DEFAULT_ENCODING
-
-      if file =~ /\.gz\z/i
-        require 'zlib'
-
-        gzip = mode.include?('w') ? Zlib::GzipWriter : Zlib::GzipReader
-        gzip.open(file, encoding: encoding, &block)
-      else
-        File.open(file, mode, encoding: encoding, &block)
-      end
+    def open_file(filename, options = {}, mode = 'rb', &block)
+      options[:encoding] ||= DEFAULT_ENCODING
+      File.open_file(filename, options, mode, &block)
     end
 
     private
@@ -111,3 +105,4 @@ end
 require_relative 'midos/base'
 require_relative 'midos/reader'
 require_relative 'midos/writer'
+require_relative 'midos/version'
