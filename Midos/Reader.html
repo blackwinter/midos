@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class Midos::Reader - midos Application documentation (v0.1.1)</title>
+<title>class Midos::Reader - midos Application documentation (v0.2.0)</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
@@ -178,7 +178,7 @@
           <div class="method-source-code" id="parse-source">
             <pre><span class="ruby-comment"># File lib/midos/reader.rb, line 36</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">parse</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-  <span class="ruby-identifier">reader</span> = <span class="ruby-identifier">new</span>(<span class="ruby-identifier">extract_options!</span>(<span class="ruby-identifier">args</span>)).<span class="ruby-identifier">parse</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-identifier">reader</span> = <span class="ruby-identifier">new</span>(<span class="ruby-identifier">args</span>.<span class="ruby-identifier">extract_options!</span>).<span class="ruby-identifier">parse</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
   <span class="ruby-identifier">block</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">reader</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">reader</span>.<span class="ruby-identifier">records</span>
 <span class="ruby-keyword">end</span></pre>
           </div>

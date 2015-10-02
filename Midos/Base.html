@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class Midos::Base - midos Application documentation (v0.1.1)</title>
+<title>class Midos::Base - midos Application documentation (v0.2.0)</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
@@ -69,8 +69,6 @@
   <h3>Methods</h3>
 
   <ul class="link-list" role="directory">
-    
-    <li ><a href="#method-c-extract_options-21">::extract_options!</a>
     
     <li ><a href="#method-c-file_method">::file_method</a>
     
@@ -247,7 +245,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/midos/base.rb, line 53</span>
+            <pre><span class="ruby-comment"># File lib/midos/base.rb, line 51</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">options</span> = {}, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">key</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:key</span>]
 
@@ -280,39 +278,6 @@
        </header>
 
     
-      <div id="method-c-extract_options-21" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">extract_options!</span><span
-            class="method-args">(args)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="extract_options-21-source">
-            <pre><span class="ruby-comment"># File lib/midos/base.rb, line 47</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_options!</span>(<span class="ruby-identifier">args</span>)
-  <span class="ruby-identifier">args</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">pop</span> <span class="ruby-operator">:</span> {}
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
       <div id="method-c-file_method" class="method-detail ">
         
         <div class="method-heading">
@@ -332,7 +297,7 @@
 
           
           <div class="method-source-code" id="file_method-source">
-            <pre><span class="ruby-comment"># File lib/midos/base.rb, line 36</span>
+            <pre><span class="ruby-comment"># File lib/midos/base.rb, line 38</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">file_method</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">mode</span>, <span class="ruby-identifier">file</span>, <span class="ruby-identifier">options</span> = {}, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
   <span class="ruby-constant">Midos</span>.<span class="ruby-identifier">open_file</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">options</span>, <span class="ruby-identifier">mode</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">io</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">args</span>.<span class="ruby-identifier">unshift</span>(<span class="ruby-identifier">options</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">io</span><span class="ruby-operator">:</span> <span class="ruby-identifier">io</span>))
@@ -368,7 +333,7 @@
 
           
           <div class="method-source-code" id="replacements_for-source">
-            <pre><span class="ruby-comment"># File lib/midos/base.rb, line 43</span>
+            <pre><span class="ruby-comment"># File lib/midos/base.rb, line 45</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">replacements_for</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
   <span class="ruby-identifier">args</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">a</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;%#{a.bytes.map { |b| b.to_s(16) }.join.upcase}&quot;</span> }
 <span class="ruby-keyword">end</span></pre>
@@ -409,7 +374,7 @@
 
           
           <div class="method-source-code" id="reset-source">
-            <pre><span class="ruby-comment"># File lib/midos/base.rb, line 72</span>
+            <pre><span class="ruby-comment"># File lib/midos/base.rb, line 70</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">reset</span>
   <span class="ruby-ivar">@auto_id</span> = <span class="ruby-ivar">@auto_id_block</span> <span class="ruby-operator">?</span> <span class="ruby-ivar">@auto_id_block</span>.<span class="ruby-identifier">call</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">default_auto_id</span>
 <span class="ruby-keyword">end</span></pre>
@@ -450,7 +415,7 @@
 
           
           <div class="method-source-code" id="default_auto_id-source">
-            <pre><span class="ruby-comment"># File lib/midos/base.rb, line 78</span>
+            <pre><span class="ruby-comment"># File lib/midos/base.rb, line 76</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">default_auto_id</span>(<span class="ruby-identifier">n</span> = <span class="ruby-value">0</span>)
   <span class="ruby-identifier">lambda</span> { <span class="ruby-identifier">n</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span> }
 <span class="ruby-keyword">end</span></pre>

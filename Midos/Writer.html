@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class Midos::Writer - midos Application documentation (v0.1.1)</title>
+<title>class Midos::Writer - midos Application documentation (v0.2.0)</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
@@ -70,6 +70,8 @@
 
   <ul class="link-list" role="directory">
     
+    <li class="calls-super" ><a href="#method-c-new">::new</a>
+    
     <li ><a href="#method-c-open">::open</a>
     
     <li ><a href="#method-c-transform">::transform</a>
@@ -79,6 +81,8 @@
     <li ><a href="#method-c-write_file">::write_file</a>
     
     <li ><a href="#method-i-3C-3C">#&lt;&lt;</a>
+    
+    <li ><a href="#method-i-5B-5D-3D">#[]=</a>
     
     <li ><a href="#method-i-put">#put</a>
     
@@ -138,6 +142,45 @@
        </header>
 
     
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(options = {})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+            <div class="method-calls-super">
+              Calls superclass method
+              <a href="Base.html#method-c-new">Midos::Base.new</a>
+            </div>
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/midos/writer.rb, line 65</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">options</span> = {})
+  <span class="ruby-ivar">@sort</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:sort</span>]
+  <span class="ruby-keyword">super</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
       <div id="method-c-open" class="method-detail ">
         
         <div class="method-heading">
@@ -159,7 +202,7 @@
           <div class="method-source-code" id="open-source">
             <pre><span class="ruby-comment"># File lib/midos/writer.rb, line 46</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">open</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-  <span class="ruby-identifier">file_method</span>(<span class="ruby-keyword">nil</span>, <span class="ruby-string">&#39;w&#39;</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-identifier">file_method</span>(<span class="ruby-keyword">nil</span>, <span class="ruby-string">&#39;wb&#39;</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -199,7 +242,7 @@
     <span class="ruby-identifier">value</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">v</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-identifier">vs</span>, <span class="ruby-identifier">rvs</span>) }.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">vs</span>)
 
   <span class="ruby-identifier">value</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-identifier">nl</span>, <span class="ruby-identifier">rnl</span>)
-  <span class="ruby-identifier">value</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-string">&quot;\n&quot;</span>, <span class="ruby-identifier">nl</span>)
+  <span class="ruby-identifier">value</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp">/\r\n?|\n/</span>, <span class="ruby-identifier">nl</span>)
 
   <span class="ruby-identifier">value</span>
 <span class="ruby-keyword">end</span></pre>
@@ -234,7 +277,7 @@
           <div class="method-source-code" id="write-source">
             <pre><span class="ruby-comment"># File lib/midos/writer.rb, line 38</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">write</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-  <span class="ruby-identifier">new</span>(<span class="ruby-identifier">extract_options!</span>(<span class="ruby-identifier">args</span>), <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>).<span class="ruby-identifier">write</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+  <span class="ruby-identifier">new</span>(<span class="ruby-identifier">args</span>.<span class="ruby-identifier">extract_options!</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>).<span class="ruby-identifier">write</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -267,7 +310,7 @@
           <div class="method-source-code" id="write_file-source">
             <pre><span class="ruby-comment"># File lib/midos/writer.rb, line 42</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">write_file</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-  <span class="ruby-identifier">file_method</span>(<span class="ruby-value">:write</span>, <span class="ruby-string">&#39;w&#39;</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-identifier">file_method</span>(<span class="ruby-value">:write</span>, <span class="ruby-string">&#39;wb&#39;</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -315,6 +358,39 @@
       </div>
 
     
+      <div id="method-i-5B-5D-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">[]=</span><span
+            class="method-args">(id, record)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="5B-5D-3D-source">
+            <pre><span class="ruby-comment"># File lib/midos/writer.rb, line 93</span>
+<span class="ruby-keyword">def</span> <span class="ruby-operator">[]=</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">record</span>)
+  <span class="ruby-identifier">write_i</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">record</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
       <div id="method-i-put" class="method-detail ">
         
         <div class="method-heading">
@@ -334,7 +410,7 @@
 
           
           <div class="method-source-code" id="put-source">
-            <pre><span class="ruby-comment"># File lib/midos/writer.rb, line 78</span>
+            <pre><span class="ruby-comment"># File lib/midos/writer.rb, line 83</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">put</span>(<span class="ruby-identifier">record</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
   <span class="ruby-identifier">record</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>) <span class="ruby-operator">?</span>
     <span class="ruby-identifier">write_i</span>(<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">record</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>) <span class="ruby-operator">:</span>
@@ -375,7 +451,7 @@
 
           
           <div class="method-source-code" id="vs-3D-source">
-            <pre><span class="ruby-comment"># File lib/midos/writer.rb, line 65</span>
+            <pre><span class="ruby-comment"># File lib/midos/writer.rb, line 70</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">vs=</span>(<span class="ruby-identifier">vs</span>)
   <span class="ruby-identifier">vs</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>) <span class="ruby-operator">?</span> <span class="ruby-ivar">@vs</span> = <span class="ruby-identifier">vs</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">raise</span>(<span class="ruby-constant">TypeError</span>,
     <span class="ruby-node">&quot;wrong argument type #{vs.class} (expected String)&quot;</span>)
@@ -409,7 +485,7 @@
 
           
           <div class="method-source-code" id="write-source">
-            <pre><span class="ruby-comment"># File lib/midos/writer.rb, line 70</span>
+            <pre><span class="ruby-comment"># File lib/midos/writer.rb, line 75</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">write</span>(<span class="ruby-identifier">records</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
   <span class="ruby-operator">!</span><span class="ruby-identifier">records</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>) <span class="ruby-operator">?</span>
     <span class="ruby-identifier">records</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">record</span><span class="ruby-operator">|</span> <span class="ruby-identifier">write_i</span>(<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">record</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>) } <span class="ruby-operator">:</span>
@@ -454,7 +530,7 @@
 
           
           <div class="method-source-code" id="transform-source">
-            <pre><span class="ruby-comment"># File lib/midos/writer.rb, line 103</span>
+            <pre><span class="ruby-comment"># File lib/midos/writer.rb, line 112</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">transform</span>(<span class="ruby-identifier">value</span>)
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">transform</span>(<span class="ruby-identifier">value</span>, <span class="ruby-identifier">vs</span>, <span class="ruby-identifier">nl</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -487,13 +563,13 @@
 
           
           <div class="method-source-code" id="write_i-source">
-            <pre><span class="ruby-comment"># File lib/midos/writer.rb, line 90</span>
+            <pre><span class="ruby-comment"># File lib/midos/writer.rb, line 99</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">write_i</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">record</span>, <span class="ruby-identifier">io</span> = <span class="ruby-identifier">io</span>())
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">record</span>.<span class="ruby-identifier">empty?</span>
 
   <span class="ruby-identifier">record</span>[<span class="ruby-identifier">key</span>] = <span class="ruby-identifier">id</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">auto_id</span>.<span class="ruby-identifier">call</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">key</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">record</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-identifier">key</span>)
 
-  <span class="ruby-identifier">record</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+  (<span class="ruby-ivar">@sort</span> <span class="ruby-operator">?</span> <span class="ruby-constant">Hash</span>[<span class="ruby-identifier">record</span>.<span class="ruby-identifier">sort</span>] <span class="ruby-operator">:</span> <span class="ruby-identifier">record</span>).<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">k</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">io</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">k</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">fs</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">transform</span>(<span class="ruby-identifier">v</span>) <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">le</span> <span class="ruby-operator">:</span>
      <span class="ruby-constant">Array</span>(<span class="ruby-identifier">v</span>).<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">w</span><span class="ruby-operator">|</span> <span class="ruby-identifier">io</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">w</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">le</span> } <span class="ruby-keyword">if</span> <span class="ruby-identifier">v</span>
   }

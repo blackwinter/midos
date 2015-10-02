@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>module Midos - midos Application documentation (v0.1.1)</title>
+<title>module Midos - midos Application documentation (v0.2.0)</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "./";
@@ -176,7 +176,7 @@
 
           
           <div class="method-source-code" id="convert-source">
-            <pre><span class="ruby-comment"># File lib/midos.rb, line 68</span>
+            <pre><span class="ruby-comment"># File lib/midos.rb, line 70</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">convert</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
   <span class="ruby-identifier">filter</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>) { <span class="ruby-operator">|</span><span class="ruby-operator">*</span><span class="ruby-operator">|</span> <span class="ruby-keyword">true</span> }
 <span class="ruby-keyword">end</span></pre>
@@ -209,7 +209,7 @@
 
           
           <div class="method-source-code" id="convert_file-source">
-            <pre><span class="ruby-comment"># File lib/midos.rb, line 72</span>
+            <pre><span class="ruby-comment"># File lib/midos.rb, line 74</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">convert_file</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
   <span class="ruby-identifier">filter_file</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>) { <span class="ruby-operator">|</span><span class="ruby-operator">*</span><span class="ruby-operator">|</span> <span class="ruby-keyword">true</span> }
 <span class="ruby-keyword">end</span></pre>
@@ -242,7 +242,7 @@
 
           
           <div class="method-source-code" id="filter-source">
-            <pre><span class="ruby-comment"># File lib/midos.rb, line 50</span>
+            <pre><span class="ruby-comment"># File lib/midos.rb, line 52</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">filter</span>(<span class="ruby-identifier">source</span>, <span class="ruby-identifier">target</span>, <span class="ruby-identifier">source_options</span> = {}, <span class="ruby-identifier">target_options</span> = <span class="ruby-identifier">source_options</span>)
   <span class="ruby-identifier">writer</span>, <span class="ruby-identifier">size</span> = <span class="ruby-constant">Writer</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">target_options</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">io</span><span class="ruby-operator">:</span> <span class="ruby-identifier">target</span>)), <span class="ruby-value">0</span>
 
@@ -281,10 +281,10 @@
 
           
           <div class="method-source-code" id="filter_file-source">
-            <pre><span class="ruby-comment"># File lib/midos.rb, line 60</span>
+            <pre><span class="ruby-comment"># File lib/midos.rb, line 62</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">filter_file</span>(<span class="ruby-identifier">source_file</span>, <span class="ruby-identifier">target_file</span>, <span class="ruby-identifier">source_options</span> = {}, <span class="ruby-identifier">target_options</span> = <span class="ruby-identifier">source_options</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
   <span class="ruby-identifier">open_file</span>(<span class="ruby-identifier">source_file</span>, <span class="ruby-identifier">source_options</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">source</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">open_file</span>(<span class="ruby-identifier">target_file</span>, <span class="ruby-identifier">target_options</span>, <span class="ruby-string">&#39;w&#39;</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">target</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">open_file</span>(<span class="ruby-identifier">target_file</span>, <span class="ruby-identifier">target_options</span>, <span class="ruby-string">&#39;wb&#39;</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">target</span><span class="ruby-operator">|</span>
       <span class="ruby-identifier">filter</span>(<span class="ruby-identifier">source</span>, <span class="ruby-identifier">target</span>, <span class="ruby-identifier">source_options</span>, <span class="ruby-identifier">target_options</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
     }
   }
@@ -303,7 +303,7 @@
         
         <div class="method-heading">
           <span class="method-name">open_file</span><span
-            class="method-args">(file, options = {}, mode = 'r', &block)</span>
+            class="method-args">(filename, options = {}, mode = 'rb', &block)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -318,18 +318,10 @@
 
           
           <div class="method-source-code" id="open_file-source">
-            <pre><span class="ruby-comment"># File lib/midos.rb, line 84</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">open_file</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">options</span> = {}, <span class="ruby-identifier">mode</span> = <span class="ruby-string">&#39;r&#39;</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-  <span class="ruby-identifier">encoding</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:encoding</span>] <span class="ruby-operator">||=</span> <span class="ruby-constant">DEFAULT_ENCODING</span>
-
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">file</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/\.gz\z/i</span>
-    <span class="ruby-identifier">require</span> <span class="ruby-string">&#39;zlib&#39;</span>
-
-    <span class="ruby-identifier">gzip</span> = <span class="ruby-identifier">mode</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&#39;w&#39;</span>) <span class="ruby-operator">?</span> <span class="ruby-constant">Zlib</span><span class="ruby-operator">::</span><span class="ruby-constant">GzipWriter</span> <span class="ruby-operator">:</span> <span class="ruby-constant">Zlib</span><span class="ruby-operator">::</span><span class="ruby-constant">GzipReader</span>
-    <span class="ruby-identifier">gzip</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">encoding</span><span class="ruby-operator">:</span> <span class="ruby-identifier">encoding</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">mode</span>, <span class="ruby-identifier">encoding</span><span class="ruby-operator">:</span> <span class="ruby-identifier">encoding</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-  <span class="ruby-keyword">end</span>
+            <pre><span class="ruby-comment"># File lib/midos.rb, line 86</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">open_file</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-identifier">options</span> = {}, <span class="ruby-identifier">mode</span> = <span class="ruby-string">&#39;rb&#39;</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-identifier">options</span>[<span class="ruby-value">:encoding</span>] <span class="ruby-operator">||=</span> <span class="ruby-constant">DEFAULT_ENCODING</span>
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">open_file</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-identifier">options</span>, <span class="ruby-identifier">mode</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -360,7 +352,7 @@
 
           
           <div class="method-source-code" id="uniq-source">
-            <pre><span class="ruby-comment"># File lib/midos.rb, line 76</span>
+            <pre><span class="ruby-comment"># File lib/midos.rb, line 78</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">uniq</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
   <span class="ruby-identifier">uniq_wrapper</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">block</span><span class="ruby-operator">|</span> <span class="ruby-identifier">filter</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>) }
 <span class="ruby-keyword">end</span></pre>
@@ -393,7 +385,7 @@
 
           
           <div class="method-source-code" id="uniq_file-source">
-            <pre><span class="ruby-comment"># File lib/midos.rb, line 80</span>
+            <pre><span class="ruby-comment"># File lib/midos.rb, line 82</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">uniq_file</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
   <span class="ruby-identifier">uniq_wrapper</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">block</span><span class="ruby-operator">|</span> <span class="ruby-identifier">filter_file</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>) }
 <span class="ruby-keyword">end</span></pre>
@@ -434,7 +426,7 @@
 
           
           <div class="method-source-code" id="uniq_wrapper-source">
-            <pre><span class="ruby-comment"># File lib/midos.rb, line 99</span>
+            <pre><span class="ruby-comment"># File lib/midos.rb, line 93</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">uniq_wrapper</span>
   <span class="ruby-identifier">require</span> <span class="ruby-string">&#39;nuggets/hash/seen&#39;</span>
 

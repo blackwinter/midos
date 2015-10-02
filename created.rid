@@ -1,9 +1,9 @@
-Thu, 11 Jun 2015 10:40:11 +0200
-README	Thu, 11 Jun 2015 10:39:47 +0200
+Fri, 02 Oct 2015 13:12:03 +0200
+README	Fri, 02 Oct 2015 13:09:16 +0200
 COPYING	Fri, 11 Apr 2014 14:43:50 +0200
-ChangeLog	Thu, 11 Jun 2015 10:25:25 +0200
-lib/midos.rb	Tue, 28 Apr 2015 16:25:47 +0200
-lib/midos/base.rb	Thu, 11 Jun 2015 09:53:21 +0200
-lib/midos/reader.rb	Thu, 11 Jun 2015 10:23:22 +0200
-lib/midos/writer.rb	Thu, 11 Jun 2015 10:22:10 +0200
-lib/midos/version.rb	Thu, 11 Jun 2015 10:39:34 +0200
+ChangeLog	Fri, 02 Oct 2015 13:10:57 +0200
+lib/midos.rb	Fri, 02 Oct 2015 13:09:07 +0200
+lib/midos/base.rb	Fri, 02 Oct 2015 13:09:07 +0200
+lib/midos/reader.rb	Fri, 02 Oct 2015 13:09:07 +0200
+lib/midos/writer.rb	Fri, 02 Oct 2015 13:09:07 +0200
+lib/midos/version.rb	Fri, 02 Oct 2015 13:11:33 +0200
