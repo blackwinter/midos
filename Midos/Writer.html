@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class Midos::Writer - midos Application documentation (v0.2.0)</title>
+<title>class Midos::Writer - midos Application documentation (v0.2.1)</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
@@ -530,7 +530,7 @@
 
           
           <div class="method-source-code" id="transform-source">
-            <pre><span class="ruby-comment"># File lib/midos/writer.rb, line 112</span>
+            <pre><span class="ruby-comment"># File lib/midos/writer.rb, line 114</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">transform</span>(<span class="ruby-identifier">value</span>)
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">transform</span>(<span class="ruby-identifier">value</span>, <span class="ruby-identifier">vs</span>, <span class="ruby-identifier">nl</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -567,7 +567,9 @@
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">write_i</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">record</span>, <span class="ruby-identifier">io</span> = <span class="ruby-identifier">io</span>())
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">record</span>.<span class="ruby-identifier">empty?</span>
 
-  <span class="ruby-identifier">record</span>[<span class="ruby-identifier">key</span>] = <span class="ruby-identifier">id</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">auto_id</span>.<span class="ruby-identifier">call</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">key</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">record</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-identifier">key</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">key</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">record</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-identifier">key</span>)
+    <span class="ruby-identifier">record</span> = { <span class="ruby-identifier">key</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">id</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">auto_id</span>.<span class="ruby-identifier">call</span> }.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">record</span>)
+  <span class="ruby-keyword">end</span>
 
   (<span class="ruby-ivar">@sort</span> <span class="ruby-operator">?</span> <span class="ruby-constant">Hash</span>[<span class="ruby-identifier">record</span>.<span class="ruby-identifier">sort</span>] <span class="ruby-operator">:</span> <span class="ruby-identifier">record</span>).<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">k</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">io</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">k</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">fs</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">transform</span>(<span class="ruby-identifier">v</span>) <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">le</span> <span class="ruby-operator">:</span>
