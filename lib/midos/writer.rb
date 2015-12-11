@@ -100,7 +100,9 @@ module Midos
     def write_i(id, record, io = io())
       return if record.empty?
 
-      record[key] = id || auto_id.call if key && !record.key?(key)
+      if key && !record.key?(key)
+        record = { key => id || auto_id.call }.update(record)
+      end
 
       (@sort ? Hash[record.sort] : record).each { |k, v|
         k ? io << k << fs << transform(v) << le :
